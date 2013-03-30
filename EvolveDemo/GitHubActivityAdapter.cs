@@ -1,0 +1,223 @@
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Collections.Concurrent;
+using System.Net.Http;
+using System.Net;
+
+using ServiceStack.Text;
+
+using Android.App;
+using Android.Content;
+using Android.OS;
+using Android.Runtime;
+using Android.Util;
+using Android.Views;
+using Android.Widget;
+using Android.Graphics;
+using Android.Animation;
+using Android.Views.Animations;
+
+namespace EvolveDemo
+{
+	public class GitHubActivityAdapter : BaseAdapter
+	{
+		readonly RoundDrawable EmptyAvatarDrawable;
+		Context context;
+		Handler handler;
+		List<GitHubEvent> events = new List<GitHubEvent> ();
+		ConcurrentDictionary<string, Task<Bitmap>> imageCache = new ConcurrentDictionary<string, Task<Bitmap>> ();
+		Typeface octoicons;
+
+		public GitHubActivityAdapter (Context context)
+		{
+			this.context = context;
+			this.handler = new Handler (context.MainLooper);
+			this.octoicons = Typeface.CreateFromAsset (context.Assets, "Octicons.ttf");
+			EmptyAvatarDrawable = new RoundDrawable (BitmapFactory.DecodeResource (context.Resources,
+			                                                                       Resource.Drawable.github_default));
+		}
+
+		public void FeedData (IEnumerable<GitHubEvent> newEvents)
+		{
+			events.AddRange (newEvents);
+			NotifyDataSetChanged ();
+		}
+
+		public void Clear ()
+		{
+			events.Clear ();
+			NotifyDataSetChanged ();
+		}
+
+		public override View GetView (int position, View convertView, ViewGroup parent)
+		{
+			var view = EnsureView (convertView);
+			var versionNumber = view.VersionNumber = Interlocked.Increment (ref view.VersionNumber);
+			var item = events [position];
+
+			var authorAvatar = view.FindViewById<ImageView> (Resource.Id.AuthorAvatar);
+			var authorText = view.FindViewById<TextView> (Resource.Id.AuthorText);
+			var repoText = view.FindViewById<TextView> (Resource.Id.RepositoryText);
+			var secondaryText = view.FindViewById<TextView> (Resource.Id.ActivitySecondary);
+			var githubIcon = view.FindViewById<TextView> (Resource.Id.GitHubIcon);
+
+			githubIcon.Typeface = octoicons;
+			githubIcon.Text = GitHubIconsUtils.GetIconCharForEventType (item.Type).ToString ();
+			authorText.Text = item.Actor.Login;
+			repoText.Text = item.Repo.Name.Substring ("xamarin/".Length);
+
+			var eventText = MakeTextForEvent (item);
+			secondaryText.Text = eventText ?? string.Empty;
+
+			authorAvatar.SetImageDrawable (EmptyAvatarDrawable);
+			FetchAvatar (view, authorAvatar, item, versionNumber);
+
+			var extraInformation = view.FindViewById<TextView> (Resource.Id.ExtraInformation);
+			extraInformation.LayoutParameters.Height = 0;
+			view.Expandable = false;
+			switch (item.Type) {
+			case GitHubEventType.CommitCommentEvent:
+			case GitHubEventType.IssueCommentEvent:
+			case GitHubEventType.PullRequestReviewCommentEvent:
+			case GitHubEventType.PushEvent:
+			case GitHubEventType.PullRequestEvent:
+				MakeExtra (item, extraInformation);
+				view.Expandable = true;
+				break;
+			}
+
+			if (!item.Consummed) {
+				item.Consummed = true;
+				var animation = AnimationUtils.MakeInChildBottomAnimation (context);
+				view.StartAnimation (animation);
+			}
+
+			return view;
+		}
+
+		GitHubActivityItem EnsureView (View convertView)
+		{
+			var item = convertView as GitHubActivityItem;
+			if (item == null)
+				item = new GitHubActivityItem (context);
+
+			return item;
+		}
+
+		void FetchAvatar (GitHubActivityItem view, ImageView avatarView, GitHubEvent evt, long versionNumber)
+		{
+			var url = GravatarHelper.MakeUrl (evt.Actor.Gravatar_Id, 48.ToPixels ());
+			var bmp = imageCache.GetOrAdd (url, u => SerialScheduler.Factory.StartNew (() => {
+				var wc = new WebClient ();
+				try {
+					var data = wc.DownloadData (u);
+					return BitmapFactory.DecodeByteArray (data, 0, data.Length);
+				} catch {
+					return null;
+				}
+			}));
+
+			if (bmp.IsCompleted && bmp.Result != null)
+				avatarView.SetImageDrawable (new RoundDrawable (bmp.Result));
+			else
+				bmp.ContinueWith (t => {
+					if (view.VersionNumber == versionNumber && t.Result != null)
+						handler.Post (() => {
+							if (view.VersionNumber == versionNumber)
+								avatarView.SetImageDrawableAnimated (new RoundDrawable (t.Result));
+						});
+				});
+		}
+
+		string MakeTextForEvent (GitHubEvent evt)
+		{
+			switch (evt.Type) {
+			case GitHubEventType.PushEvent:
+				return string.Format ("Pushed {0} commits", evt.Payload["size"].ToString ());
+			case GitHubEventType.ForkEvent:
+				return string.Format ("Forked to {0}", evt.Payload.Object ("forkee")["full_name"]);
+			case GitHubEventType.IssuesEvent:
+				return string.Format ("{0} issue {1}", evt.Payload["action"].ToTitleCase (), evt.Payload.Object ("issue")["number"]);
+			case GitHubEventType.WatchEvent:
+				return string.Format ("{0} watching", evt.Payload["action"].ToTitleCase ());
+			case GitHubEventType.PullRequestEvent:
+				return string.Format ("{0} pull request {1}", evt.Payload["action"].ToTitleCase (), evt.Payload["number"]);
+			case GitHubEventType.IssueCommentEvent:
+				return string.Format ("Commented on issue {0}", evt.Payload.Object ("issue")["number"]);
+			case GitHubEventType.CreateEvent:
+				return string.Format ("Created {0} {1}", evt.Payload ["ref_type"], evt.Payload ["ref"] ?? evt.Repo.Name);
+			default:
+				return null;
+			}
+		}
+
+		void MakeExtra (GitHubEvent evt, TextView extraInfo)
+		{
+			switch (evt.Type) {
+			case GitHubEventType.CommitCommentEvent:
+			case GitHubEventType.IssueCommentEvent:
+			case GitHubEventType.PullRequestReviewCommentEvent:
+				var text = evt.Payload.Object ("comment") ["body"].SingleLineify ();
+				text = '“' + text.Ellipsize () + '”';
+				extraInfo.Text = text;
+				extraInfo.Typeface = Typeface.Create (extraInfo.Typeface, TypefaceStyle.Italic);
+				break;
+			case GitHubEventType.PushEvent:
+				break;
+			case GitHubEventType.PullRequestEvent:
+				text = evt.Payload.Object ("pull_request") ["body"].SingleLineify ().Ellipsize ();
+				extraInfo.Text = text;
+				extraInfo.Typeface = Typeface.Create (extraInfo.Typeface, TypefaceStyle.Normal);
+				break;
+			}
+		}
+
+		public override Java.Lang.Object GetItem (int position)
+		{
+			return new Java.Lang.String (events [position].Id);
+		}
+
+		public override long GetItemId (int position)
+		{
+			return events [position].Id.GetHashCode ();
+		}
+
+		public override bool HasStableIds {
+			get {
+				return true;
+			}
+		}
+
+		public override int ViewTypeCount {
+			get {
+				return 1;
+			}
+		}
+
+		public override int Count {
+			get {
+				return events.Count;
+			}
+		}
+	}
+
+	static class GithubStringExtensions
+	{
+		public static string SingleLineify (this string input)
+		{
+			var space = " ";
+			input = input.Replace ("\r\n", space);
+			input = input.Replace ("\r", space);
+			input = input.Replace ("\n", space);
+			return input;
+		}
+
+		public static string Ellipsize (this string input, int maxSize = 30)
+		{
+			return input == null || input.Length < maxSize ? input : input.Substring (0, maxSize - 1) + '…';
+		}
+	}
+}
+

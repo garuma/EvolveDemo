@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F9A02585-0513-4604-8DB9-1070F26EFFAC}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>EvolveDemo</RootNamespace>
+    <AndroidApplication>True</AndroidApplication>
+    <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
+    <AndroidResgenClass>Resource</AndroidResgenClass>
+    <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
+    <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
+    <AssemblyName>EvolveDemo</AssemblyName>
+    <TargetFrameworkVersion>v4.1</TargetFrameworkVersion>
+    <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidLinkMode>None</AndroidLinkMode>
+    <ConsolePause>false</ConsolePause>
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="Mono.Android" />
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MainActivity.cs" />
+    <Compile Include="Resources\Resource.designer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ListViewAwesome.cs" />
+    <Compile Include="CollectionViewAwesome.cs" />
+    <Compile Include="GitHubActivityAdapter.cs" />
+    <Compile Include="GitHubActivityItem.cs" />
+    <Compile Include="GitHubPocos.cs" />
+    <Compile Include="ImageViewExtensions.cs" />
+    <Compile Include="SerialScheduler.cs" />
+    <Compile Include="GravatarHelper.cs" />
+    <Compile Include="DensityExtensions.cs" />
+    <Compile Include="RoundDrawable.cs" />
+    <Compile Include="ExpandableListView.cs" />
+    <Compile Include="ExpandHelper.cs" />
+    <Compile Include="DoubleSwipeDetector.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AboutResources.txt" />
+    <None Include="Assets\AboutAssets.txt" />
+    <None Include="Properties\AndroidManifest.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\Main.axml" />
+    <AndroidResource Include="Resources\values\Strings.xml" />
+    <AndroidResource Include="Resources\layout\ListViewAwesomeLayout.axml" />
+    <AndroidResource Include="Resources\drawable-nodpi\Icon.png" />
+    <AndroidResource Include="Resources\drawable-nodpi\list_item_box.xml" />
+    <AndroidResource Include="Resources\layout\GitHubActivityItemLayout.axml" />
+    <AndroidResource Include="Resources\drawable-xhdpi\github_default.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\github_default.png" />
+    <AndroidResource Include="Resources\drawable-nodpi\pattern.9.png" />
+    <AndroidResource Include="Resources\layout\ListHeaderLayout.axml" />
+    <AndroidResource Include="Resources\menu\activity_menu.xml" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_menu_refresh.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_menu_refresh.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\bottom_divider_glow.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\top_divider_glow.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\bottom_divider_glow.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\top_divider_glow.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\ServiceStack.Text\src\ServiceStack.Text.Android\ServiceStack.Text.Android\ServiceStack.Text.Android.csproj">
+      <Project>{56838CD4-8EBC-4860-A3E1-1697875BBC61}</Project>
+      <Name>ServiceStack.Text.Android</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Octicons.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\drawable-hdpi\" />
+    <Folder Include="Resources\drawable-xhdpi\" />
+    <Folder Include="Resources\menu\" />
+  </ItemGroup>
+</Project>

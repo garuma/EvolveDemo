@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="4dp">
+    <View
+        android:id="@+id/TopGlow"
+        android:alpha="0"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_gravity="top|center_horizontal"
+        android:background="@drawable/top_divider_glow" />
+    <FrameLayout
+        android:minWidth="25px"
+        android:minHeight="32dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/frameLayout1"
+        android:background="@drawable/list_item_box"
+        android:paddingTop="6dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="8dp"
+        android:paddingLeft="8dp">
+        <LinearLayout
+            android:orientation="vertical"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/linearLayout6"
+            android:layout_gravity="center">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/linearLayout1"
+                android:layout_gravity="center"
+                android:layout_weight="1">
+                <ImageView
+                    android:src="@android:drawable/ic_menu_gallery"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:id="@+id/AuthorAvatar"
+                    android:scaleType="fitCenter"
+                    android:minWidth="48px"
+                    android:minHeight="48px"
+                    android:layout_gravity="top"
+                    android:visibility="visible"
+                    android:layout_marginRight="4dp" />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:minWidth="25px"
+                    android:minHeight="25px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/linearLayout3"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="2dp">
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:minWidth="25px"
+                        android:minHeight="25px"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:id="@+id/linearLayout2">
+                        <TextView
+                            android:text="Jérémie Laval"
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:id="@+id/AuthorText"
+                            android:textSize="14sp"
+                            android:shadowColor="#ffffff"
+                            android:shadowDx="2"
+                            android:shadowDy="2"
+                            android:shadowRadius="0.1" />
+                        <TextView
+                            android:text=" on "
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:id="@+id/textView3"
+                            android:textColor="#ff5c5c5c"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:text="Repository"
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:id="@+id/RepositoryText"
+                            android:textSize="14sp"
+                            android:shadowColor="#ffffff"
+                            android:shadowDx="2"
+                            android:shadowDy="2"
+                            android:shadowRadius="0.1" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:minWidth="25px"
+                        android:minHeight="25px"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/linearLayout4"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="2dp">
+                        <TextView
+                            android:text="↪"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/BracketIntro"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="4dp"
+                            android:textColor="#ff5c5c5c"
+                            android:shadowColor="#ff444444"
+                            android:shadowDx="-1"
+                            android:shadowDy="-1"
+                            android:shadowRadius="0.1"
+                            android:textSize="10sp"
+                            android:paddingBottom="3dp" />
+                        <TextView
+                            android:text="Pushed 8 commits"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/ActivitySecondary"
+                            android:textSize="10sp"
+                            android:layout_gravity="center" />
+                    </LinearLayout>
+                </LinearLayout>
+                <TextView
+                    android:text="T"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/GitHubIcon"
+                    android:textColor="#ff5c5c5c"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="18dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:shadowColor="#ffffff"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="0.1" />
+            </LinearLayout>
+            <TextView
+                android:text="Text"
+                android:layout_width="fill_parent"
+                android:layout_height="0px"
+                android:id="@+id/ExtraInformation"
+                android:gravity="center"
+                android:textColor="#ff1e1e1e"
+                android:textSize="16sp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp" />
+        </LinearLayout>
+    </FrameLayout>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:id="@+id/view1"
+        android:background="#ffe0e0e0"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp" />
+    <View
+        android:id="@+id/BottomGlow"
+        android:alpha="0"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:background="@drawable/bottom_divider_glow" />
+    <Space
+        android:layout_width="fill_parent"
+        android:layout_height="4dp"
+        android:id="@+id/space1" />
+</LinearLayout>
