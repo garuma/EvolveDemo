@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
@@ -74,8 +75,23 @@ namespace EvolveDemo
 			authorAvatar.SetImageDrawable (EmptyAvatarDrawable);
 			FetchAvatar (view, authorAvatar, item, versionNumber);
 
+			var actionLayout = view.FindViewById (Resource.Id.ActionLayout);
+			actionLayout.LayoutParameters.Height = 1;
+			var actions = new Tuple<int, char>[] {
+				Tuple.Create (Resource.Id.Action1, '\uf06f'),
+				Tuple.Create (Resource.Id.Action2, '\uf223'),
+				Tuple.Create (Resource.Id.Action3, '\uf22a'),
+			};
+			foreach (var a in actions) {
+				var actView = view.FindViewById<TextView> (a.Item1);
+				actView.Typeface = octoicons;
+				actView.Text = a.Item2.ToString ();
+			}
+
 			var extraInformation = view.FindViewById<TextView> (Resource.Id.ExtraInformation);
+			var expandableMark = view.FindViewById<TextView> (Resource.Id.ExpandableMark);
 			extraInformation.LayoutParameters.Height = 0;
+			expandableMark.Visibility = ViewStates.Gone;
 			view.Expandable = false;
 			switch (item.Type) {
 			case GitHubEventType.CommitCommentEvent:
@@ -83,6 +99,8 @@ namespace EvolveDemo
 			case GitHubEventType.PullRequestReviewCommentEvent:
 			case GitHubEventType.PushEvent:
 			case GitHubEventType.PullRequestEvent:
+			case GitHubEventType.IssuesEvent:
+				expandableMark.Visibility = ViewStates.Visible;
 				MakeExtra (item, extraInformation);
 				view.Expandable = true;
 				break;
@@ -155,21 +173,31 @@ namespace EvolveDemo
 
 		void MakeExtra (GitHubEvent evt, TextView extraInfo)
 		{
+			extraInfo.Gravity = GravityFlags.Center;
+			extraInfo.Typeface = Typeface.Create (extraInfo.Typeface, TypefaceStyle.Normal);
+			extraInfo.SetSingleLine (true);
 			switch (evt.Type) {
 			case GitHubEventType.CommitCommentEvent:
 			case GitHubEventType.IssueCommentEvent:
 			case GitHubEventType.PullRequestReviewCommentEvent:
 				var text = evt.Payload.Object ("comment") ["body"].SingleLineify ();
-				text = '“' + text.Ellipsize () + '”';
+				text = '“' + text + '”';
 				extraInfo.Text = text;
 				extraInfo.Typeface = Typeface.Create (extraInfo.Typeface, TypefaceStyle.Italic);
 				break;
 			case GitHubEventType.PushEvent:
+				var commits = evt.Payload.ArrayObjects ("commits").Select (c => c ["sha"].Substring (0, 5) + " " + c ["message"].SingleLineify ().Ellipsize (35));
+				extraInfo.SetSingleLine (false);
+				extraInfo.Gravity = GravityFlags.Left;
+				extraInfo.Text = string.Join (System.Environment.NewLine, commits.Select (line => "   › " + line));
 				break;
 			case GitHubEventType.PullRequestEvent:
-				text = evt.Payload.Object ("pull_request") ["body"].SingleLineify ().Ellipsize ();
+				text = evt.Payload.Object ("pull_request") ["body"].SingleLineify ();
 				extraInfo.Text = text;
-				extraInfo.Typeface = Typeface.Create (extraInfo.Typeface, TypefaceStyle.Normal);
+				break;
+			case GitHubEventType.IssuesEvent:
+				text = evt.Payload.Object ("issue") ["body"].SingleLineify ();
+				extraInfo.Text = text;
 				break;
 			}
 		}

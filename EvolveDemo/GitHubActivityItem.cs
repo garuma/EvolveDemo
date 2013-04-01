@@ -41,6 +41,26 @@ namespace EvolveDemo
 			inflater.Inflate (Resource.Layout.GitHubActivityItemLayout, this, true);
 		}
 
+		public void DoLongClick ()
+		{
+			var presentationLayout = FindViewById (Resource.Id.PresentationLayout);
+			var actionLayout = FindViewById (Resource.Id.ActionLayout);
+			if (presentationLayout.Visibility == ViewStates.Gone) {
+				presentationLayout.Visibility = ViewStates.Visible;
+				var lp = new LinearLayout.LayoutParams (actionLayout.LayoutParameters) {
+					Height = 1,
+				};
+				actionLayout.LayoutParameters = lp;
+			} else {
+				var lp = new LinearLayout.LayoutParams (actionLayout.LayoutParameters) {
+					Height = ViewGroup.LayoutParams.WrapContent,
+					Gravity = GravityFlags.Center
+				};
+				actionLayout.LayoutParameters = lp;
+				presentationLayout.Visibility = ViewStates.Gone;
+			}
+		}
+
 		public long VersionNumber;
 
 		/*public Bitmap ReusedBitmap {

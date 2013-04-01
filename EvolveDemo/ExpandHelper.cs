@@ -20,6 +20,7 @@ using Android.Animation;
 using Android.Content;
 using Android.Views;
 using Android.Util;
+using Android.Widget;
 
 namespace EvolveDemo
 {
@@ -353,17 +354,21 @@ namespace EvolveDemo
 			currView = v;
 			ViewGroup g = v as ViewGroup;
 			if (g == null)
-				g = v.Parent.Parent as ViewGroup;
-			if (g != null) {
+				g = v.Parent as ViewGroup;
+			while (g != null && !(g is ListView)) {
 				currViewTopGlow = g.FindViewById(Resource.Id.TopGlow);
 				currViewBottomGlow = g.FindViewById(Resource.Id.BottomGlow);
+
+				if (currViewTopGlow != null || currViewBottomGlow != null)
+					break;
+				g = g.Parent as ViewGroup;
 			}
 		}
 
-		/*public void OnClick(View v)
+		public void OnClick(View v)
 		{
 			InitScale(v);
 			FinishScale(true);
-		}*/
+		}
 	}
 }

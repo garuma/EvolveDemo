@@ -33,6 +33,6 @@
         android:dividerHeight="0dp"
         android:id="@id/android:list"
         android:layout_weight="1"
-        android:listSelector="@null"
-        innerViewId="@id/ExtraInformation" />
+        innerViewId="@id/ExtraInformation"
+        android:listSelector="@android:color/transparent" />
 </LinearLayout>

@@ -24,6 +24,7 @@ namespace EvolveDemo
 
 		ExpandHelper expandHelper;
 		bool expandoRequested;
+		bool wasExpanding;
 
 		public ExpandableListView (Context context) :
 			base (context)
@@ -48,13 +49,10 @@ namespace EvolveDemo
 
 		void Initialize ()
 		{
-			Focusable = false;
+			/*Focusable = false;
 			FocusableInTouchMode = false;
-			DescendantFocusability = DescendantFocusability.BlockDescendants;
-			LongClickable = false;
-			Clickable = false;
-			SetSelector (Android.Resource.Color.Transparent);
-			expandHelper = new ExpandHelper (Context, this, 0, 15.ToPixels ());
+			DescendantFocusability = DescendantFocusability.BlockDescendants;*/
+			expandHelper = new ExpandHelper (Context, this, 0, 48.ToPixels ());
 			expandHelper.SetEventSource (this);
 		}
 
@@ -72,7 +70,25 @@ namespace EvolveDemo
 		public override bool OnTouchEvent (MotionEvent e)
 		{
 			expandHelper.OnTouchEvent (e);
-			return expandHelper.Progressing || e.PointerCount == 2 || base.OnTouchEvent (e);
+			if (expandHelper.Progressing || e.PointerCount == 2) {
+				wasExpanding = true;
+				return true;
+			}
+
+			return base.OnTouchEvent (e);
+		}
+
+		public override bool PerformItemClick (View view, int position, long id)
+		{
+			if (wasExpanding) {
+				wasExpanding = false;
+				return false;
+			}
+			//expandHelper.OnClick (InnerViewId == -1 ? view : view.FindViewById (InnerViewId));
+			var activityItem = view as GitHubActivityItem;
+			activityItem.DoLongClick ();
+			return true;
+			//return base.PerformItemClick (view, position, id);
 		}
 
 		public View GetChildAtRawPosition (float x, float y)
