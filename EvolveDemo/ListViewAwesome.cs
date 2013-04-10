@@ -1,9 +1,10 @@
 
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Net.Http;
+using System.Net;
 
 using Android.App;
 using Android.Content;
@@ -53,17 +54,23 @@ namespace EvolveDemo
 			if (loading || e.FirstVisibleItem + e.VisibleItemCount < e.TotalItemCount - 5)
 				return;
 			loading = true;
-			FetchData (offset: currentOffset++);
+			FetchData (currentOffset++);
 		}
 
-		async void FetchData (int offset = 0)
+		void FetchData (int offset = 0)
 		{
-			var client = new HttpClient ();
+			var client = new WebClient ();
 			var url = "https://api.github.com/orgs/xamarin/events";
 			url += "?page=" + offset;
-			var data = await client.GetStreamAsync (url).ConfigureAwait (false);
-			var items = JsonSerializer.DeserializeFromStream<List<GitHubEvent>> (data);
-			Activity.RunOnUiThread (() => { adapter.FeedData (items); loading = false; });
+			Task.Factory.StartNew (() => client.DownloadString (url)).ContinueWith (t => {
+				var data = t.Result;
+				var items = JsonSerializer.DeserializeFromString<List<GitHubEvent>> (data);
+				Activity.RunOnUiThread (() => {
+					adapter.FeedData (items);
+					Activity.RunOnUiThread (() => ListView.Animate ().Alpha (1).SetDuration (1000));
+					loading = false;
+				});
+			});
 		}
 
 		public override void OnCreateOptionsMenu (IMenu menu, MenuInflater inflater)
