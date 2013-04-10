@@ -22,7 +22,7 @@ namespace EvolveDemo
 	{
 		GitHubActivityAdapter adapter;
 		bool loading;
-		int currentOffset = 0;
+		int currentOffset = 1;
 
 		public override void OnCreate (Bundle savedInstanceState)
 		{
@@ -57,7 +57,7 @@ namespace EvolveDemo
 			FetchData (currentOffset++);
 		}
 
-		void FetchData (int offset = 0)
+		void FetchData (int offset)
 		{
 			var client = new WebClient ();
 			var url = "https://api.github.com/orgs/xamarin/events";
@@ -82,7 +82,7 @@ namespace EvolveDemo
 		{
 			adapter.Clear ();
 			loading = true;
-			currentOffset = 0;
+			currentOffset = 1;
 			FetchData (currentOffset++);
 			adapter.Scrolled = false;
 			return true;
