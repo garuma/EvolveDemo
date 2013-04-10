@@ -182,7 +182,10 @@
                         android:layout_marginRight="16dp"
                         android:textSize="20sp"
                         android:background="@drawable/list_item_box"
-                        android:padding="8dp" />
+                        android:paddingBottom="7dp"
+                        android:paddingTop="8dp"
+                        android:paddingRight="8dp"
+                        android:paddingLeft="8dp" />
                     <TextView
                         android:text="A2"
                         android:layout_width="fill_parent"
@@ -191,7 +194,10 @@
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
                         android:textSize="20sp"
-                        android:padding="8dp"
+                        android:paddingBottom="7dp"
+                        android:paddingTop="8dp"
+                        android:paddingRight="8dp"
+                        android:paddingLeft="8dp"
                         android:background="@drawable/list_item_box" />
                     <TextView
                         android:text="A3"
@@ -202,7 +208,10 @@
                         android:layout_marginRight="16dp"
                         android:textSize="20sp"
                         android:background="@drawable/list_item_box"
-                        android:padding="8dp" />
+                        android:paddingBottom="7dp"
+                        android:paddingTop="8dp"
+                        android:paddingRight="8dp"
+                        android:paddingLeft="8dp" />
                 </LinearLayout>
             </LinearLayout>
             <TextView
