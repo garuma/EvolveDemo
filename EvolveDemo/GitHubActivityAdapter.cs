@@ -24,7 +24,7 @@ namespace EvolveDemo
 {
 	public class GitHubActivityAdapter : BaseAdapter
 	{
-		readonly RoundDrawable EmptyAvatarDrawable;
+		readonly RoundCornersDrawable EmptyAvatarDrawable;
 		Context context;
 		Handler handler;
 		List<GitHubEvent> events = new List<GitHubEvent> ();
@@ -36,8 +36,8 @@ namespace EvolveDemo
 			this.context = context;
 			this.handler = new Handler (context.MainLooper);
 			this.octoicons = Typeface.CreateFromAsset (context.Assets, "Octicons.ttf");
-			EmptyAvatarDrawable = new RoundDrawable (BitmapFactory.DecodeResource (context.Resources,
-			                                                                       Resource.Drawable.github_default));
+			EmptyAvatarDrawable = new RoundCornersDrawable (BitmapFactory.DecodeResource (context.Resources,
+			                                                                              Resource.Drawable.github_default));
 		}
 
 		public void FeedData (IEnumerable<GitHubEvent> newEvents)
@@ -140,13 +140,13 @@ namespace EvolveDemo
 			}));
 
 			if (bmp.IsCompleted && bmp.Result != null)
-				avatarView.SetImageDrawable (new RoundDrawable (bmp.Result));
+				avatarView.SetImageDrawable (new RoundCornersDrawable (bmp.Result));
 			else
 				bmp.ContinueWith (t => {
 					if (view.VersionNumber == versionNumber && t.Result != null)
 						handler.Post (() => {
 							if (view.VersionNumber == versionNumber)
-								avatarView.SetImageDrawableAnimated (new RoundDrawable (t.Result));
+								avatarView.SetImageDrawableAnimated (new RoundCornersDrawable (t.Result));
 						});
 				});
 		}

@@ -5,7 +5,7 @@ using Android.Graphics.Drawables;
 
 namespace EvolveDemo
 {
-	public class RoundDrawable : Drawable
+	public class RoundCornersDrawable : Drawable
 	{
 		float mCornerRadius;
 		RectF mRect = new RectF ();
@@ -13,7 +13,7 @@ namespace EvolveDemo
 		Paint paint;
 		int margin;
 
-		public RoundDrawable (Bitmap bitmap, float cornerRadius = 5, int margin = 3)
+		public RoundCornersDrawable (Bitmap bitmap, float cornerRadius = 5, int margin = 3)
 		{
 			mCornerRadius = cornerRadius;
 

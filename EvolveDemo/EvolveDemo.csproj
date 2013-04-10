@@ -59,10 +59,10 @@
     <Compile Include="SerialScheduler.cs" />
     <Compile Include="GravatarHelper.cs" />
     <Compile Include="DensityExtensions.cs" />
-    <Compile Include="RoundDrawable.cs" />
     <Compile Include="ExpandableListView.cs" />
     <Compile Include="ExpandHelper.cs" />
     <Compile Include="DoubleSwipeDetector.cs" />
+    <Compile Include="RoundCornersDrawable.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
