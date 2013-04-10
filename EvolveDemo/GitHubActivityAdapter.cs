@@ -166,6 +166,8 @@ namespace EvolveDemo
 				return string.Format ("Commented on issue {0}", evt.Payload.Object ("issue")["number"]);
 			case GitHubEventType.CreateEvent:
 				return string.Format ("Created {0} {1}", evt.Payload ["ref_type"], evt.Payload ["ref"] ?? evt.Repo.Name);
+			case GitHubEventType.CommitCommentEvent:
+				return string.Format ("Commented on commit {0}", evt.Payload.Object ("comment")["commit_id"].Substring (0, 5));
 			default:
 				return null;
 			}
