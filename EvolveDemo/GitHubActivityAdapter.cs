@@ -75,6 +75,8 @@ namespace EvolveDemo
 			authorAvatar.SetImageDrawable (EmptyAvatarDrawable);
 			FetchAvatar (view, authorAvatar, item, versionNumber);
 
+			var presentationLayout = view.FindViewById (Resource.Id.PresentationLayout);
+			presentationLayout.Visibility = ViewStates.Visible;
 			var actionLayout = view.FindViewById (Resource.Id.ActionLayout);
 			actionLayout.LayoutParameters.Height = 1;
 			var actions = new Tuple<int, char>[] {
