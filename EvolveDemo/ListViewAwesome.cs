@@ -23,19 +23,28 @@ namespace EvolveDemo
 		bool loading;
 		int currentOffset = 1;
 
+		public override void OnCreate (Bundle savedInstanceState)
+		{
+			base.OnCreate (savedInstanceState);
+			SetHasOptionsMenu (true);
+		}
+
 		public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
 			return inflater.Inflate (Resource.Layout.ListViewAwesomeLayout, container, false);
+		}
+
+		public override void OnAttach (Activity activity)
+		{
+			base.OnAttach (activity);
+			ListAdapter = adapter = new GitHubActivityAdapter (Activity);
+			FetchData (offset: currentOffset++);
 		}
 
 		public override void OnViewCreated (View view, Bundle savedInstanceState)
 		{
 			base.OnViewCreated (view, savedInstanceState);
 			ListView.Scroll += HandleScroll;
-			var header = Activity.LayoutInflater.Inflate (Resource.Layout.ListHeaderLayout, ListView, false);
-			ListView.AddHeaderView (header, null, false);
-			ListAdapter = adapter = new GitHubActivityAdapter (Activity);
-			FetchData (offset: currentOffset++);
 		}
 
 		void HandleScroll (object sender, AbsListView.ScrollEventArgs e)
