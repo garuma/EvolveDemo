@@ -27,6 +27,7 @@
     <EvolveDemo.ExpandableListView
         android:minWidth="25px"
         android:minHeight="25px"
+        android:alpha="0.1"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:divider="@null"

@@ -29,7 +29,7 @@ namespace EvolveDemo
 		public GitHubRepo Repo { get; set; }
 		public GitHubActor Actor { get; set; }
 		public JsonObject Payload { get; set; }
-		public bool Consummed { get; set; }
+		public bool Consumed { get; set; }
 	}
 	
 	public class GitHubRepo

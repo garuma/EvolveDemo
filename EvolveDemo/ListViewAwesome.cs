@@ -40,7 +40,8 @@ namespace EvolveDemo
 
 		void HandleScroll (object sender, AbsListView.ScrollEventArgs e)
 		{
-			if (loading || e.FirstVisibleItem + e.VisibleItemCount < e.TotalItemCount)
+			adapter.Scrolled = e.FirstVisibleItem > 0;
+			if (loading || e.FirstVisibleItem + e.VisibleItemCount < e.TotalItemCount - 5)
 				return;
 			loading = true;
 			FetchData (offset: currentOffset++);
@@ -64,7 +65,10 @@ namespace EvolveDemo
 		public override bool OnOptionsItemSelected (IMenuItem item)
 		{
 			adapter.Clear ();
-			FetchData ();
+			currentOffset = 1;
+			loading = true;
+			FetchData (0);
+			adapter.Scrolled = false;
 			return true;
 		}
 	}

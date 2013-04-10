@@ -52,6 +52,11 @@ namespace EvolveDemo
 			NotifyDataSetChanged ();
 		}
 
+		public bool Scrolled {
+			get;
+			set;
+		}
+
 		public override View GetView (int position, View convertView, ViewGroup parent)
 		{
 			var view = EnsureView (convertView);
@@ -108,10 +113,12 @@ namespace EvolveDemo
 				break;
 			}
 
-			if (!item.Consummed) {
-				item.Consummed = true;
-				var animation = AnimationUtils.MakeInChildBottomAnimation (context);
-				view.StartAnimation (animation);
+			if (!item.Consumed) {
+				item.Consumed = true;
+				if (Scrolled) {
+					var animation = AnimationUtils.MakeInChildBottomAnimation (context);
+					view.StartAnimation (animation);
+				}
 			}
 
 			return view;
