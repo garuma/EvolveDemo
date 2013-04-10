@@ -49,10 +49,7 @@ namespace EvolveDemo
 
 		void Initialize ()
 		{
-			/*Focusable = false;
-			FocusableInTouchMode = false;
-			DescendantFocusability = DescendantFocusability.BlockDescendants;*/
-			expandHelper = new ExpandHelper (Context, this, 0, 48.ToPixels ());
+			expandHelper = new ExpandHelper (Context, this, 0, Context.ToPixels (48));
 			expandHelper.SetEventSource (this);
 		}
 

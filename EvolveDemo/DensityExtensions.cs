@@ -10,18 +10,14 @@ namespace EvolveDemo
 {
 	public static class DensityExtensions
 	{
-		static float density;
+		static readonly DisplayMetrics displayMetrics = new DisplayMetrics ();
 
-		public static void Initialize (Context ctx)
+		public static int ToPixels (this Context ctx, int dp)
 		{
 			var wm = ctx.GetSystemService (Context.WindowService).JavaCast<IWindowManager> ();
-			var displayMetrics = new DisplayMetrics ();
 			wm.DefaultDisplay.GetMetrics (displayMetrics);
-			density = displayMetrics.Density;
-		}
 
-		public static int ToPixels (this int dp)
-		{
+			var density = displayMetrics.Density;
 			return (int)(dp * density + 0.5f);
 		}
 	}

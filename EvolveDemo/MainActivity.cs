@@ -22,7 +22,6 @@ namespace EvolveDemo
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
-			DensityExtensions.Initialize (this);
 
 			ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
 			AddTabWithFragment<ListViewAwesome> ("ListView", () => listViewFragment, hasOptionsMenu: true);

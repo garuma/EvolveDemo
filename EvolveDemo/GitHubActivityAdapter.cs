@@ -128,7 +128,7 @@ namespace EvolveDemo
 
 		void FetchAvatar (GitHubActivityItem view, ImageView avatarView, GitHubEvent evt, long versionNumber)
 		{
-			var url = GravatarHelper.MakeUrl (evt.Actor.Gravatar_Id, 48.ToPixels ());
+			var url = GravatarHelper.MakeUrl (evt.Actor.Gravatar_Id, context.ToPixels (48));
 			var bmp = imageCache.GetOrAdd (url, u => SerialScheduler.Factory.StartNew (() => {
 				var wc = new WebClient ();
 				try {
