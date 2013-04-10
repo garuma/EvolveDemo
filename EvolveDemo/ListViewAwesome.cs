@@ -22,7 +22,7 @@ namespace EvolveDemo
 	{
 		GitHubActivityAdapter adapter;
 		bool loading;
-		int currentOffset = 1;
+		int currentOffset = 0;
 
 		public override void OnCreate (Bundle savedInstanceState)
 		{
@@ -39,7 +39,7 @@ namespace EvolveDemo
 		{
 			base.OnAttach (activity);
 			ListAdapter = adapter = new GitHubActivityAdapter (Activity);
-			FetchData (offset: currentOffset++);
+			FetchData (currentOffset++);
 		}
 
 		public override void OnViewCreated (View view, Bundle savedInstanceState)
@@ -81,9 +81,9 @@ namespace EvolveDemo
 		public override bool OnOptionsItemSelected (IMenuItem item)
 		{
 			adapter.Clear ();
-			currentOffset = 1;
 			loading = true;
-			FetchData (0);
+			currentOffset = 0;
+			FetchData (currentOffset++);
 			adapter.Scrolled = false;
 			return true;
 		}
