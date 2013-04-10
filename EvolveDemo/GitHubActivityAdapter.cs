@@ -184,7 +184,7 @@ namespace EvolveDemo
 		void MakeExtra (GitHubEvent evt, TextView extraInfo)
 		{
 			extraInfo.Gravity = GravityFlags.Center;
-			extraInfo.Typeface = Typeface.Create (extraInfo.Typeface, TypefaceStyle.Normal);
+			extraInfo.Typeface = Typeface.Default;
 			extraInfo.SetSingleLine (true);
 			switch (evt.Type) {
 			case GitHubEventType.CommitCommentEvent:
@@ -193,12 +193,13 @@ namespace EvolveDemo
 				var text = evt.Payload.Object ("comment") ["body"].SingleLineify ();
 				text = '“' + text + '”';
 				extraInfo.Text = text;
-				extraInfo.Typeface = Typeface.Create (extraInfo.Typeface, TypefaceStyle.Italic);
+				extraInfo.Typeface = Typeface.Create (Typeface.Default, TypefaceStyle.Italic);
 				break;
 			case GitHubEventType.PushEvent:
-				var commits = evt.Payload.ArrayObjects ("commits").Select (c => c ["sha"].Substring (0, 5) + " " + c ["message"].SingleLineify ().Ellipsize (35));
+				var commits = evt.Payload.ArrayObjects ("commits").Select (c => c ["sha"].Substring (0, 5) + " " + c ["message"].SingleLineify ().Ellipsize (21));
 				extraInfo.SetSingleLine (false);
 				extraInfo.Gravity = GravityFlags.Left;
+				extraInfo.Typeface = Typeface.Monospace;
 				extraInfo.Text = string.Join (System.Environment.NewLine, commits.Select (line => "   › " + line));
 				break;
 			case GitHubEventType.PullRequestEvent:
