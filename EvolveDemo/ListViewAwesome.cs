@@ -50,7 +50,6 @@ namespace EvolveDemo
 
 		void HandleScroll (object sender, AbsListView.ScrollEventArgs e)
 		{
-			adapter.Scrolled = e.FirstVisibleItem > 0;
 			if (loading || e.FirstVisibleItem + e.VisibleItemCount < e.TotalItemCount - 5)
 				return;
 			loading = true;
@@ -62,6 +61,8 @@ namespace EvolveDemo
 			var client = new WebClient ();
 			var url = "https://api.github.com/orgs/xamarin/events";
 			url += "?page=" + offset;
+			client = client.Setup (ref url);
+
 			Task.Factory.StartNew (() => client.DownloadString (url)).ContinueWith (t => {
 				var data = t.Result;
 				var items = JsonSerializer.DeserializeFromString<List<GitHubEvent>> (data);
@@ -84,7 +85,6 @@ namespace EvolveDemo
 			loading = true;
 			currentOffset = 1;
 			FetchData (currentOffset++);
-			adapter.Scrolled = false;
 			return true;
 		}
 	}

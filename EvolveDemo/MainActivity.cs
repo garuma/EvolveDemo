@@ -10,7 +10,7 @@ using Android.Content.PM;
 
 namespace EvolveDemo
 {
-	[Activity (Label = "GitHub Events", MainLauncher = true, Theme = "@android:style/Theme.Holo.Light.DarkActionBar",
+	[Activity (Label = "(Basic) GitHub Events", MainLauncher = true, Theme = "@android:style/Theme.Holo.Light.DarkActionBar",
 	           ScreenOrientation = ScreenOrientation.Portrait, ConfigurationChanges = ConfigChanges.Orientation)]
 	public class Activity1 : Activity
 	{

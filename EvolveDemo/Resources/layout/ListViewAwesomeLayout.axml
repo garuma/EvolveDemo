@@ -24,18 +24,11 @@
             android:id="@+id/textView1"
             android:layout_gravity="center" />
     </LinearLayout>
-    <EvolveDemo.ExpandableListView
+    <ListView
         android:minWidth="25px"
         android:minHeight="25px"
-        android:alpha="0.1"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:divider="@null"
-        android:dividerHeight="0dp"
         android:id="@id/android:list"
-        android:layout_weight="1"
-        innerViewId="@id/ExtraInformation"
-        android:fadingEdgeLength="16dp"
-        android:requiresFadingEdge="vertical"
-        android:listSelector="@android:color/transparent" />
+        android:layout_weight="1" />
 </LinearLayout>

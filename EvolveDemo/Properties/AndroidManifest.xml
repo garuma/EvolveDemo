@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="EvolveDemo.EvolveDemo">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="EvolveDemo.EvolveDemoBasic">
 	<uses-sdk android:minSdkVersion="16" android:targetSdkVersion="17" />
-	<application android:label="EvolveDemo" android:icon="@drawable/icon">
+	<application android:label="EvolveDemoBasic" android:icon="@drawable/icon">
 	</application>
 </manifest>

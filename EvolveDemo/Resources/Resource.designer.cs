@@ -61,92 +61,17 @@ namespace EvolveDemo
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f060011
-			public const int Action1 = 2131099665;
-			
-			// aapt resource value: 0x7f060012
-			public const int Action2 = 2131099666;
-			
-			// aapt resource value: 0x7f060013
-			public const int Action3 = 2131099667;
-			
-			// aapt resource value: 0x7f060010
-			public const int ActionLayout = 2131099664;
-			
-			// aapt resource value: 0x7f06000d
-			public const int ActivitySecondary = 2131099661;
+			// aapt resource value: 0x7f060002
+			public const int GithubListView = 2131099650;
 			
 			// aapt resource value: 0x7f060003
-			public const int AnimatedLayout = 2131099651;
-			
-			// aapt resource value: 0x7f060005
-			public const int AuthorAvatar = 2131099653;
-			
-			// aapt resource value: 0x7f060008
-			public const int AuthorText = 2131099656;
-			
-			// aapt resource value: 0x7f060016
-			public const int BottomGlow = 2131099670;
-			
-			// aapt resource value: 0x7f06000c
-			public const int BracketIntro = 2131099660;
-			
-			// aapt resource value: 0x7f06000e
-			public const int ExpandableMark = 2131099662;
-			
-			// aapt resource value: 0x7f060014
-			public const int ExtraInformation = 2131099668;
-			
-			// aapt resource value: 0x7f06000f
-			public const int GitHubIcon = 2131099663;
-			
-			// aapt resource value: 0x7f06001b
-			public const int GithubListView = 2131099675;
-			
-			// aapt resource value: 0x7f060004
-			public const int PresentationLayout = 2131099652;
-			
-			// aapt resource value: 0x7f06001c
-			public const int RefreshAction = 2131099676;
-			
-			// aapt resource value: 0x7f06000a
-			public const int RepositoryText = 2131099658;
+			public const int RefreshAction = 2131099651;
 			
 			// aapt resource value: 0x7f060000
-			public const int TopGlow = 2131099648;
+			public const int progressBar1 = 2131099648;
 			
 			// aapt resource value: 0x7f060001
-			public const int frameLayout1 = 2131099649;
-			
-			// aapt resource value: 0x7f060007
-			public const int linearLayout2 = 2131099655;
-			
-			// aapt resource value: 0x7f060006
-			public const int linearLayout3 = 2131099654;
-			
-			// aapt resource value: 0x7f06000b
-			public const int linearLayout4 = 2131099659;
-			
-			// aapt resource value: 0x7f060002
-			public const int linearLayout6 = 2131099650;
-			
-			// aapt resource value: 0x7f06001a
-			public const int progressBar1 = 2131099674;
-			
-			// aapt resource value: 0x7f060017
-			public const int space1 = 2131099671;
-			
-			// aapt resource value: 0x7f060019
-			public const int textView1 = 2131099673;
-			
-			// aapt resource value: 0x7f060009
-			public const int textView3 = 2131099657;
-			
-			// aapt resource value: 0x7f060015
-			public const int view1 = 2131099669;
-			
-			// aapt resource value: 0x7f060018
-			public const int view2 = 2131099672;
+			public const int textView1 = 2131099649;
 			
 			private Id()
 			{
@@ -157,16 +82,10 @@ namespace EvolveDemo
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int GitHubActivityItemLayout = 2130903040;
+			public const int ListViewAwesomeLayout = 2130903040;
 			
 			// aapt resource value: 0x7f030001
-			public const int ListHeaderLayout = 2130903041;
-			
-			// aapt resource value: 0x7f030002
-			public const int ListViewAwesomeLayout = 2130903042;
-			
-			// aapt resource value: 0x7f030003
-			public const int Main = 2130903043;
+			public const int Main = 2130903041;
 			
 			private Layout()
 			{

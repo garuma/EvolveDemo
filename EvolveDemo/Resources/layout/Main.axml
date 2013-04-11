@@ -3,8 +3,6 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-    <include
-        layout="@layout/ListHeaderLayout" />
     <fragment
         android:name="EvolveDemo.ListViewAwesome"
         android:id="@+id/GithubListView"
