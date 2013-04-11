@@ -81,8 +81,8 @@ namespace EvolveDemo
 
 		public override bool OnOptionsItemSelected (IMenuItem item)
 		{
-			adapter.Clear ();
 			loading = true;
+			adapter.Clear ();
 			currentOffset = 1;
 			FetchData (currentOffset++);
 			adapter.Scrolled = false;
