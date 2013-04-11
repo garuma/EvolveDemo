@@ -136,7 +136,7 @@ namespace EvolveDemo
 		{
 			var url = GravatarHelper.MakeUrl (evt.Actor.Gravatar_Id, context.ToPixels (48));
 			var bmp = imageCache.GetOrAdd (url, u => SerialScheduler.Factory.StartNew (() => {
-				var wc = new WebClient ();
+				var wc = new WebClient ().Setup (ref u);
 				try {
 					var data = wc.DownloadData (u);
 					return BitmapFactory.DecodeByteArray (data, 0, data.Length);

@@ -62,6 +62,7 @@
     <Compile Include="ExpandHelper.cs" />
     <Compile Include="DoubleSwipeDetector.cs" />
     <Compile Include="RoundCornersDrawable.cs" />
+    <Compile Include="NetworkAccessor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
